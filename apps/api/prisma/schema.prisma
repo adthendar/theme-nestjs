@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client"
+  output = "../src/generated"
+  moduleFormat = "esm"
+  importFileExtension = "js"
+}
+datasource db {
+  provider = "mysql"
+}
+enum Role {
+  ADMIN
+  USER
+}
+model User {
+  id           String    @id @default(uuid())
+  name         String    @db.VarChar(100)
+  email        String    @unique @db.VarChar(254)
+  passwordHash String
+  role         Role      @default(USER)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  sessions     Session[]
+  roles        UserRole[]
+  @@index([role, isActive])
+}
+model AccessRole {
+  code        String   @id @db.VarChar(40)
+  name        String   @db.VarChar(80)
+  description String   @db.VarChar(240)
+  system      Boolean  @default(false)
+  users       UserRole[]
+  permissions RolePermission[]
+}
+model AccessPermission {
+  code        String   @id @db.VarChar(40)
+  roles       RolePermission[]
+}
+model UserRole {
+  userId   String
+  roleCode String @db.VarChar(40)
+  user     User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role     AccessRole @relation(fields: [roleCode], references: [code], onDelete: Restrict)
+  @@id([userId, roleCode])
+  @@index([roleCode])
+}
+model RolePermission {
+  roleCode       String @db.VarChar(40)
+  permissionCode String @db.VarChar(40)
+  role           AccessRole @relation(fields: [roleCode], references: [code], onDelete: Cascade)
+  permission     AccessPermission @relation(fields: [permissionCode], references: [code], onDelete: Restrict)
+  @@id([roleCode, permissionCode])
+  @@index([permissionCode])
+}
+model Session {
+  id          String   @id
+  userId      String
+  refreshHash String
+  expiresAt   DateTime
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+  @@index([expiresAt])
+}
+model AppSetting {
+  id           Int    @id
+  name         String @db.VarChar(80)
+  description  String @db.VarChar(240)
+  logo         String @db.VarChar(512)
+  timezone     String @db.VarChar(80)
+  defaultTheme String
+}

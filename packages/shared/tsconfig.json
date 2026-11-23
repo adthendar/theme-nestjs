@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "Node16",
+    "outDir": "dist",
+    "declaration": true
+  },
+  "include": ["index.ts", "index.test.ts"]
+}

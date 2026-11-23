@@ -1,0 +1,30 @@
+{
+  "name": "starter",
+  "private": true,
+  "packageManager": "pnpm@11.11.0",
+  "scripts": {
+    "lint": "eslint \"apps/**/*.{ts,tsx}\" packages --no-error-on-unmatched-pattern",
+    "typecheck": "pnpm --filter @starter/shared build \u0026\u0026 pnpm -r typecheck",
+    "test": "pnpm --filter @starter/shared build \u0026\u0026 pnpm -r --workspace-concurrency=1 test",
+    "build": "pnpm -r build",
+    "prepare": "husky",
+    "dev": "pnpm --filter @starter/shared build \u0026\u0026 pnpm -r --parallel dev",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "eslint": "^9.39.0",
+    "typescript-eslint": "^8.56.0",
+    "typescript": "~5.9.3",
+    "prettier": "^3.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.0",
+    "@types/node": "^24.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,yml}": "prettier --write"
+  }
+}

@@ -1,0 +1,8 @@
+pnpm-lock.yaml
+**/generated/
+**/.next/
+**/dist/
+DESIGN.md
+**/.next-e2e/
+apps/web/components/ui/
+apps/web/styles/dens-ui.css

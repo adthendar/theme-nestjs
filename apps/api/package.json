@@ -1,0 +1,44 @@
+{
+  "name": "@starter/api",
+  "private": true,
+  "scripts": {
+    "generate": "prisma generate",
+    "build": "pnpm generate && tsc",
+    "typecheck": "pnpm generate && tsc --noEmit",
+    "test": "pnpm build && node --test dist/api.test.js",
+    "dev": "pnpm build && node --watch dist/main.js",
+    "start": "node dist/main.js",
+    "migrate": "prisma migrate deploy",
+    "seed": "node dist/seed.js"
+  },
+  "dependencies": {
+    "@nestjs/authorization": "0.1.4",
+    "@nestjs/common": "12.6.0",
+    "@nestjs/core": "12.6.0",
+    "@nestjs/jwt": "latest",
+    "@nestjs/platform-express": "12.6.0",
+    "@nestjs/swagger": "latest",
+    "@nestjs/throttler": "latest",
+    "@prisma/adapter-mariadb": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "@starter/shared": "workspace:*",
+    "argon2": "latest",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "cookie-parser": "latest",
+    "dotenv": "latest",
+    "helmet": "latest",
+    "nestjs-pino": "latest",
+    "pino-http": "latest",
+    "reflect-metadata": "latest",
+    "rxjs": "latest",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "latest",
+    "@types/express": "latest",
+    "prisma": "7.10.1",
+    "tsx": "latest"
+  },
+  "type": "module"
+}

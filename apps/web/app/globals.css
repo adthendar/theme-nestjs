@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "../styles/dens-ui.css";
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:where(
+  button:not(:disabled),
+  a[href],
+  [role="combobox"],
+  [role="option"],
+  [role="checkbox"]
+) {
+  cursor: pointer;
+}
